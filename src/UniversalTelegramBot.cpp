@@ -586,7 +586,7 @@ bool UniversalTelegramBot::sendMessageWithReplyKeyboard(
   if (parse_mode != "")
     payload["parse_mode"] = parse_mode;
 
-  JsonObject replyMarkup = payload.createNestedObject("reply_markup");
+  JsonObject replyMarkup = payload["reply_markup"].to<JsonObject>();
     
   replyMarkup["keyboard"] = serialized(keyboard);
 
@@ -620,7 +620,7 @@ bool UniversalTelegramBot::sendMessageWithInlineKeyboard(const String& chat_id,
   if (parse_mode != "")
     payload["parse_mode"] = parse_mode;
 
-  JsonObject replyMarkup = payload.createNestedObject("reply_markup");
+  JsonObject replyMarkup = payload["reply_markup"].to<JsonObject>();
   replyMarkup["inline_keyboard"] = serialized(keyboard);
   return sendPostMessage(payload.as<JsonObject>(), message_id); // if message id == 0 then edit is false, else edit is true
 }
@@ -719,7 +719,7 @@ String UniversalTelegramBot::sendPhoto(const String& chat_id, const String& phot
       payload["reply_to_message_id"] = reply_to_message_id;
 
   if (keyboard.length() > 0) {
-    JsonObject replyMarkup = payload.createNestedObject("reply_markup");
+    JsonObject replyMarkup = payload["reply_markup"].to<JsonObject>();
     replyMarkup["keyboard"] = serialized(keyboard);
   }
 

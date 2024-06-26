@@ -639,7 +639,7 @@ bool UniversalTelegramBot::deleteMessage(const String& chat_id, int message_id) 
     return false;
   }
 
-  DynamicJsonDocument payload(maxMessageLength);
+  JsonDocument payload;
   payload["chat_id"] = chat_id;
   payload["message_id"] = message_id;
 
